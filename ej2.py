@@ -25,19 +25,32 @@ while True:
             print(f"Cantidad de espacios disponibles: {espacios_disponibles}.")
 
         case 2:
-            espacios_ocupar = int(input("Ingrese la cantidad de espacios a ocupar: "))
-            if espacios_ocupar > 0 and espacios_ocupar <= espacios_disponibles:
-                espacios_disponibles = espacios_disponibles - espacios_ocupar
-            else:
-                print("Debe ingresar un valor mayor a cero y menor a la cantidad de espacios disponibles.")
+            while True:
+                try:
+                    espacios_ocupar = int(input("Ingrese la cantidad de espacios a ocupar: "))
+                    if espacios_ocupar > 0 and espacios_ocupar <= espacios_disponibles:
+                        espacios_disponibles = espacios_disponibles - espacios_ocupar
+                        break
+                    else:
+                        print("Error. El valor debe ser mayor a cero y menor a la cantidad de espacios disponibles.")
+                except ValueError:
+                    print("Error. Ingrese un valor numérico.")
 
         case 3:
-            espacios_liberar = int(input("Ingrese la cantidad de espacios a liberar: "))
-            if espacios_liberar > 0 and espacios_liberar <= capacidad_total:
-                espacios_disponibles = espacios_disponibles + espacios_liberar
+            while True:
+                try:
+                    espacios_liberar = int(input("Ingrese la cantidad de espacios a liberar: "))
+                    if (espacios_liberar >= 0) and (espacios_liberar <= (capacidad_total - espacios_disponibles)): # acá el enunciado dice: "No supere la capacidad máxima (60 espacios)" por lo tanto debería ser capacidad_total, pero no tiene sentido porque aumenta la capacidad total sobre 60 asi que se usará espacios ocupados que es la capacidad total menos los espacios disponibles.
+                        espacios_disponibles = espacios_disponibles + espacios_liberar
+                        break
+                    else:
+                        print(f"Error. El valor debe ser mayor a cero y menor a la capacidad ocupada que es: {capacidad_total - espacios_disponibles}.")
+                except ValueError:
+                    print("Error. Ingrese un valor numérico.")
 
         case 4:
             print(f"Espacios disponibles: {espacios_disponibles}.")
+            print(f"Espacios ocupados: {capacidad_total - espacios_disponibles}.")
 
         case 5:
             print("Gracias por utilizar nuestro software, hasta la próxima.")
